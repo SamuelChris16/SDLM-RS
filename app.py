@@ -1,23 +1,6 @@
-"""
-app.py
---------
-Dashboard utama SDLM-RS (Streamlit).
-
-Cara jalan:
-    streamlit run app.py
-
-Prasyarat (jalankan sekali di awal, atau setiap kali data mentah berubah):
-    python -m utils.data_generator     # generate data mentah
-    python scripts/run_pipeline.py     # proses semua engine -> database
-
-Dashboard ini SENGAJA dibuat simple: 4 KPI utama, 4 chart utama, 1 tabel
-eksplorasi dengan filter, dan 1 halaman workflow approval sederhana.
-Tidak dibuat kompleks berlebihan supaya tetap "mudah diinterpretasikan"
-sesuai request awal.
-"""
-
 from __future__ import annotations
 
+import os
 import io
 from datetime import datetime
 
@@ -34,10 +17,7 @@ st.set_page_config(
     layout="wide",
 )
 
-
-# ---------------------------------------------------------------------
-# DATA LOADING (cached supaya dashboard responsif)
-# ---------------------------------------------------------------------
+# cache
 @st.cache_data(ttl=60)
 def load_recommendation_data() -> pd.DataFrame:
     df = db_utils.load_table("recommendation_output")
@@ -49,9 +29,17 @@ def load_recommendation_data() -> pd.DataFrame:
 def load_approval_status() -> pd.DataFrame:
     return db_utils.load_latest_approval_status()
 
-if not os.path.exists("database/sqlite.db"):
-    from utils.data_generator import generate_database
-    generate_database()
+if not config.DATABASE_PATH.exists():
+    with st.spinner("Menyiapkan database pertama kali..."):
+
+        from utils.data_generator import main as generate_dummy_data
+        from scripts.run_pipeline import run
+
+        generate_dummy_data()
+        run()
+
+    st.success("Database berhasil dibuat.")
+    st.cache_data.clear()
 
 if not config.DATABASE_PATH.exists():
     st.error(
@@ -64,9 +52,7 @@ if not config.DATABASE_PATH.exists():
 
 df = load_recommendation_data()
 
-# ---------------------------------------------------------------------
-# SIDEBAR — FILTER
-# ---------------------------------------------------------------------
+# Filter
 st.sidebar.title("🗂️ SDLM-RS")
 st.sidebar.caption("Smart Data Lifecycle Management Recommendation System\n\nPT Saptaindra Sejati (JAHO)")
 st.sidebar.markdown("---")

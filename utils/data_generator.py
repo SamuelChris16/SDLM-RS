@@ -293,6 +293,7 @@ def main():
     print(f"  - access_log.csv       : {len(access_log_df):,} baris")
     print(f"\nDisimpan di: {config.DATA_RAW_DIR}")
 
-
+def generate_database():
+    main()
 if __name__ == "__main__":
     main()

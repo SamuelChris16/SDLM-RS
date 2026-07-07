@@ -143,5 +143,8 @@ def export_excel_report(df: pd.DataFrame) -> None:
                 ws.set_column(col_idx, col_idx, width)
 
 
+def generate_database():
+    main()
+    
 if __name__ == "__main__":
     run()
