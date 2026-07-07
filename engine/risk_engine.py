@@ -1,18 +1,3 @@
-"""
-engine/risk_engine.py
-------------------------
-Risk Scoring Engine (Engine 3 pada spesifikasi).
-
-Risk Score = Classification + Expired + Access Frequency + Exposure
-Skala 0-100, dipecah ke 4 kategori: Low / Medium / High / Critical.
-
-Catatan desain (kenapa "Many Users" spesifikasi diimplementasikan sebagai
-Exposure Score): dokumen berklasifikasi Restricted/Confidential yang bisa
-diakses oleh BANYAK user berbeda punya risiko keamanan/kebocoran data yang
-lebih tinggi dibanding dokumen sensitif yang aksesnya sangat terbatas.
-Ini interpretasi paling realistis dari parameter "Many Users" di spesifikasi.
-"""
-
 from __future__ import annotations
 import pandas as pd
 import numpy as np

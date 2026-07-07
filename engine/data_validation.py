@@ -1,25 +1,3 @@
-"""
-engine/data_validation.py
-----------------------------
-Data Validation Module.
-
-Data hasil export dari sistem sumber (SAP) di dunia nyata JARANG bersih
-100%. Modul ini mendeteksi & menangani masalah data umum sebelum masuk ke
-engine klasifikasi/retensi/risiko, supaya rekomendasi yang dihasilkan
-tidak salah karena data kotor:
-
-    1. DocumentID duplikat          -> dibuang (ambil kemunculan pertama)
-    2. CreatedDate kosong/tidak valid -> dokumen tidak bisa dihitung umurnya,
-                                          dipisah ke laporan exception
-    3. DocumentType yang tidak dikenal retention policy-nya -> exception
-    4. Site tidak dikenal            -> exception
-
-Semua temuan dicatat ke sebuah "validation report" (list of dict) yang
-nantinya diekspor sebagai reports/data_validation_report.csv — supaya
-proses ini AUDITABLE, bukan silent-cleaning yang tidak bisa dipertanggung-
-jawabkan (penting untuk aplikasi tata kelola data).
-"""
-
 from __future__ import annotations
 import pandas as pd
 import config

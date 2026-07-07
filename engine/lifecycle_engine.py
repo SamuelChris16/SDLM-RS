@@ -1,30 +1,3 @@
-"""
-engine/lifecycle_engine.py
-------------------------------
-Lifecycle Recommendation Engine (Engine 4 pada spesifikasi).
-
-Menggabungkan hasil Classification, Retention, dan Risk Engine menjadi
-satu rekomendasi akhir: KEEP / ARCHIVE / DELETE / REVIEW, lengkap dengan
-alasan (Reason) yang bisa dibaca manusia — supaya sistem ini benar-benar
-berfungsi sebagai Decision Support System, bukan cuma classifier.
-
-Prioritas aturan (dievaluasi berurutan, berhenti di aturan pertama yang match):
-
-  1. BusinessCritical == True                      -> KEEP
-  2. DeleteDue == True
-       a. Classification Restricted/Confidential
-          ATAU NeedApproval == YES                 -> REVIEW
-       b. selain itu                                -> DELETE
-  3. ArchiveDue == True (dan belum DeleteDue)
-       a. Access jarang/tidak pernah                -> ARCHIVE
-       b. Masih sering diakses                      -> KEEP (dipertahankan aktif)
-  4. Selain semua di atas (masih dalam retensi aktif) -> KEEP
-
-Urutan ini mencerminkan prinsip governance yang disebut di spesifikasi:
-dokumen sensitif tidak langsung dihapus otomatis, tetap ada tahap REVIEW
-oleh manusia (JAHO Data Governance) sebelum eksekusi akhir oleh SAP Admin.
-"""
-
 from __future__ import annotations
 import pandas as pd
 

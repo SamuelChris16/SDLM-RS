@@ -1,14 +1,3 @@
-"""
-engine/data_ingestion.py
---------------------------
-Data Ingestion Module (lihat System Architecture di spesifikasi).
-
-Tanggung jawab modul ini HANYA satu: membaca file mentah (hasil "export
-SAP") menjadi DataFrame, dengan parsing tipe data yang benar. Tidak ada
-logic bisnis di sini — itu tugas engine lain. Ini prinsip
-"separation of concerns" ala aplikasi enterprise.
-"""
-
 from __future__ import annotations
 import pandas as pd
 import config

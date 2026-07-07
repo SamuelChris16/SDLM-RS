@@ -1,19 +1,3 @@
-"""
-engine/retention_engine.py
-------------------------------
-Retention Engine (Engine 1 pada spesifikasi).
-
-Input : CreatedDate, Retention Policy, Current Date (SIMULATION_DATE)
-Output: DocumentAgeYears, Expired (YES/NO), ArchiveDue (YES/NO), DeleteDue (YES/NO)
-
-Pseudo asli dari spesifikasi:
-    IF CurrentDate > CreatedDate + Retention -> Expired
-
-Di implementasi ini logika yang sama dipecah menjadi tiga ambang batas
-(bukan cuma satu) supaya lebih dekat ke kebutuhan nyata siklus hidup
-dokumen: kapan mulai dipertimbangkan untuk archive, dan kapan sudah boleh
-dihapus.
-"""
 
 from __future__ import annotations
 import pandas as pd
