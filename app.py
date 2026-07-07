@@ -49,6 +49,9 @@ def load_recommendation_data() -> pd.DataFrame:
 def load_approval_status() -> pd.DataFrame:
     return db_utils.load_latest_approval_status()
 
+if not os.path.exists("database/sqlite.db"):
+    from utils.data_generator import generate_database
+    generate_database()
 
 if not config.DATABASE_PATH.exists():
     st.error(

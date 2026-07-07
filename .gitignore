@@ -3,7 +3,7 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
-database/*.db
+# database/*.db
 reports/*.xlsx
 reports/*.csv
 data/raw/*.csv
